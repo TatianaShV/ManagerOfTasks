@@ -16,7 +16,7 @@ public class TodosTests {
 
     @BeforeEach
     public void beforeEach() {
-         todos = new Todos();
+        todos = new Todos();
     }
 
     @Test
@@ -50,7 +50,7 @@ public class TodosTests {
 
     @Test
     public void getAllTasks() {
-
+        Todos todos = new Todos();
         todos.task = "Решить задачу";
         todos.addTask(todos.task);
         todos.task = "Помыть посуду";

@@ -12,15 +12,15 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class Client {
-    private static  String type;
+    private static String type;
 
-    private static  String task;
+    private static String task;
 
     public Client(@JsonProperty("type") String type,
 
-        @JsonProperty("task") String task) {
-            Client.type = type;
-            Client.task = task;
+                  @JsonProperty("task") String task) {
+        Client.type = type;
+        Client.task = task;
     }
 
     public static void main(String[] args) throws IOException {
@@ -36,28 +36,29 @@ public class Client {
 
             try (PrintWriter out = new PrintWriter("request.json")) {
                 Gson gson = new Gson();
-               JsonObject request = new JsonObject();
+                JsonObject request = new JsonObject();
                 request.addProperty("type", type);
                 request.addProperty("task", task);
-                    String clientrequestJson = gson.toJson(request);
-                    out.println(clientrequestJson);
-                    writer.println(clientrequestJson);
+                String clientrequestJson = gson.toJson(request);
+                out.println(clientrequestJson);
+                writer.println(clientrequestJson);
             }
             String response = reader.readLine();
             System.out.println(response);
 
 
         }
-}
+    }
 
-       public static void setType(String type) {
+    public static void setType(String type) {
         Client.type = type;
     }
 
-        public static void setTask(String task) {
+    public static void setTask(String task) {
         Client.task = task;
     }
-   public String toString() {
+
+    public String toString() {
         return type + " " + task;
     }
 }
