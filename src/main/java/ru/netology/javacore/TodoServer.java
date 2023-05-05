@@ -1,16 +1,15 @@
 package ru.netology.javacore;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class TodoServer {
     private int port;
     Todos todos;
+    Operation operation;
 
     public TodoServer(int port, Todos todos) {
         this.port = port;
@@ -27,15 +26,17 @@ public class TodoServer {
 
                     System.out.println("New connection accepted");
                     System.out.println("Подключен клиент " + socket.getPort());
+
                     String request = in.readLine();
                     System.out.println(readAnswer(request));
 
-                    switch (todos.type) {
+
+                    switch (operation.type) {
                         case "add":
-                            todos.addTask(todos.task);
+                            todos.addTask(operation.task);
                         case "remove":
-                            if (todos.type.equals("remove")) {
-                                todos.removeTask(todos.task);
+                            if (operation.type.equals("remove")) {
+                                todos.removeTask(operation.task);
                             }
                     }
                     out.println(todos.getAllTasks());
@@ -47,9 +48,9 @@ public class TodoServer {
         }
     }
 
-    private Todos readAnswer(String request) {
+    private Operation readAnswer(String request) {
         Gson gson = new Gson();
-        todos = gson.fromJson(request, Todos.class);
-        return todos;
+        operation = gson.fromJson(request, Operation.class);
+        return operation;
     }
 }
