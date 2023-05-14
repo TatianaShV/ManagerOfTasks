@@ -28,16 +28,14 @@ public class TodoServer {
                     System.out.println("Подключен клиент " + socket.getPort());
 
                     String request = in.readLine();
-                    System.out.println(readAnswer(request));
-
-
+                    readAnswer(request);
                     switch (operation.type) {
-                        case "add":
+                        case "ADD":
                             todos.addTask(operation.task);
-                        case "remove":
-                            if (operation.type.equals("remove")) {
-                                todos.removeTask(operation.task);
-                            }
+                            break;
+                        case "REMOVE":
+                            todos.removeTask(operation.task);
+                            break;
                     }
                     out.println(todos.getAllTasks());
                 }
